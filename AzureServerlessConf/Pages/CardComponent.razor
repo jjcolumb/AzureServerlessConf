@@ -1,0 +1,86 @@
+﻿<div class="card border-0 mb-3">
+    <div class="h-100"><img class="card-img-top" src="@Image" alt="Card image cap"></div>
+    <div class="card-body p-3">
+        <div class="d-flex align-items-center info-space">
+            <div>
+                <span class="avatar avatar-sm rounded-circle bg-dark text-white">@Initials</span>
+            </div>
+            <div class="pl-3"><span class="h6 text-sm mb-0">@Name</span></div>
+
+        </div>
+        <section id="info-skills">
+            <div class="info-space">
+                @foreach (var skill in @SkillsList)
+                {
+                    <span class="badge badge-dark badge-pill">@skill</span>
+                }
+            </div>
+        </section>
+        <div class="description-space">
+            <p class="text-muted text-monospace ">
+                <small>@Title</small>
+                <small>@Summary</small>
+            </p>
+        </div>
+        <div class="social-networks">
+            @if (Webpage != null)
+            {<a href="@Webpage" target="_blank" class="text-dark"><i class="fas fa-globe-americas"></i></a>}
+            @if (LinkedIn != null)
+            {<a href="@LinkedIn" target="_blank" class="text-dark"><i class="fab fa-linkedin"></i></a>}
+            @if (Twitter != null)
+            {<a href="@Twitter" target="_blank" class="text-dark"><i class="fab fa-twitter"></i></a>}
+            @if (Github != null)
+            {<a href="@Github" target="_blank" class="text-dark"><i class="fab fa-github"></i></a>}
+            @if (Telegram != null)
+            {<a href="@Telegram" target="_blank" class="text-dark"><i class="fas fa-paper-plane"></i></a>}
+            @if (StackOverflow != null)
+            {<a href="@StackOverflow" target="_blank" class="text-dark"><i class="fab fa-stack-overflow"></i></a>}
+            @if (Medium != null)
+            {<a href="@Medium" target="_blank" class="text-dark"><i class="fab fa-medium"></i></a>}
+            @if (YouTube != null)
+            {<a href="@YouTube" target="_blank" class="text-dark"><i class="fab fa-youtube"></i></a>}
+        </div>
+    </div>
+</div>
+
+@code 
+{
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> InputAttributes { get; set; }
+
+
+
+    [Parameter]
+    public string Name { get; set; }
+    [Parameter]
+    public string Initials { get; set; }
+    [Parameter]
+    public string Image { get; set; }
+    [Parameter]
+    public string Summary { get; set; }
+    [Parameter]
+    public string Title { get; set; }
+    [Parameter]
+    public string Skills { get; set; }
+    public string[] SkillsList => Skills.Split(',');
+    [Parameter]
+    public string Webpage { get; set; }
+    [Parameter]
+    public string LinkedIn { get; set; }
+    [Parameter]
+    public string Twitter { get; set; }
+    [Parameter]
+    public string Github { get; set; }
+    [Parameter]
+    public string Telegram { get; set; }
+    [Parameter]
+    public string StackOverflow { get; set; }
+    [Parameter]
+    public string Medium { get; set; }
+    [Parameter]
+    public string YouTube { get; set; }
+}

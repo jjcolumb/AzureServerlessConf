@@ -1,0 +1,48 @@
+﻿@page "/"
+
+@using AzureServerlessConf.Model;
+@using AzureServerlessConf.Extensions;
+@inject HttpClient Http;
+<link href="css/site.css" rel="stylesheet" />
+
+
+<div class="row">
+    @foreach (var developer in DeveloperList)
+    {
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <CardComponent Name="@developer.Name"
+                           Initials="@developer.Initials"
+                           Image="@developer.Image"
+                           Summary="@developer.Summary"
+                           Title="@developer.Title"
+                           Skills="@developer.Skills"
+                           Webpage="@developer.Webpage"
+                           LinkedIn="@developer.LinkedIn"
+                           Twitter="@developer.Twitter"
+                           Github="@developer.Github"
+                           Telegram="@developer.Telegram"
+                           StackOverflow="@developer.StackOverflow"
+                           Medium="@developer.Medium"
+                           YouTube="@developer.YouTube" />
+        </div>
+
+    }
+</div>
+
+@code {
+
+    public List<Speaker> DeveloperList { get; set; } = new List<Speaker>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetDevelopers();
+    }
+    private async Task GetDevelopers()
+    {
+        //List<Speaker> speakers = await Http.GetFromJsonAsync<List<Speaker>>("data/speakers.json");
+        List<Speaker> speakers = await Http.GetFromJsonAsync<List<Speaker>>("/api/GetSpeakers");
+        DeveloperList = speakers.Shuffle<Speaker>().ToList();
+    }
+
+
+}
